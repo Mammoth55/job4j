@@ -2,6 +2,13 @@ package ru.job4j.array;
 
 public class SwitchArray {
 
+    public static int[] swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+        return array;
+    }
+
     public static int[] swapBorder(int[] array) {
         int temp = array[0];
         array[0] = array[array.length-1];
