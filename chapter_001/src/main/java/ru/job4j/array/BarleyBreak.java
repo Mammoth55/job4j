@@ -7,9 +7,7 @@ public class BarleyBreak {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 dim[i][j] = i * 3 + j + 1;
-                // System.out.print(dim[i][j]); проверка заполнения
             }
-            // System.out.println(); CRLF
         }
     }
 }
