@@ -1,5 +1,4 @@
 package ru.job4j.calculate;
-
 /**
  * Calculate task.
  * @author Viacheslav Mamontov (slamam@mail.ru)
@@ -7,7 +6,6 @@ package ru.job4j.calculate;
  * @since 24.02.2020
  */
 public class Calculate {
-
     /**
      * Main.
      * @param args - args.

@@ -1,13 +1,11 @@
 package ru.job4j.array;
 
 public class AlgoArray {
-
     public static void swap(int[] array, int i, int j) {
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
-
     public static void main(String[] args) {
         int[] array = new int[] {5, 3, 2, 1, 4};
         swap(array, 3, 0);

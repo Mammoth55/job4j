@@ -1,13 +1,11 @@
 package ru.job4j.array;
 
 public class Defragment {
-
     public static void swap(String[] array, int i, int j) {
         String temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
-
     public static String[] compress(String[] array) {
         for (int i = 0; i < array.length - 1; i++) {
             if (array[i] == null) {
@@ -21,7 +19,6 @@ public class Defragment {
         }
         return array;
     }
-
     public static void main(String[] args) {
         String[] input = {"I", null, "wanna", null, "be", null, "compressed"};
         String[] compressed = compress(input);
