@@ -12,7 +12,7 @@ public class Merge {
             if ((rcount == right.length) || (lcount < left.length) && (left[lcount] <= right[rcount])) {
                 rsl[i] = left[lcount];
                 lcount++;
-            } else if ((lcount == left.length) || (rcount < right.length) && (left[lcount] > right[rcount])) {
+            } else {
                 rsl[i] = right[rcount];
                 rcount++;
             }
