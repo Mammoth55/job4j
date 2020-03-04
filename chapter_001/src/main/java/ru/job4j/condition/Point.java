@@ -25,16 +25,7 @@ public class Point {
     }
 
     public double distance3d(Point that) {
-        Point a = new Point(this.x, this.y);
-        Point b = new Point(that.x, that.y);
-        double katet1 = a.distance(b);
-        a = new Point(this.z, 0);
-        b = new Point(that.z, 0);
-        double katet2 = a.distance(b);
-        a = new Point(katet1, 0);
-        b = new Point(0, katet2);
-        double rsl = a.distance(b);
-        return rsl;
+        return sqrt(pow(this.x - that.x, 2) + pow(this.y - that.y, 2) + pow(this.z - that.z, 2));
     }
 
     public static void main(String[] args) {
