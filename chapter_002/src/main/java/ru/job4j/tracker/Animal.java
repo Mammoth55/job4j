@@ -12,5 +12,6 @@ public class Animal {
     public Animal(String nick) {
         super();
         this.name = nick;
+        System.out.println("Class Animal with Nick " + nick);
     }
 }
