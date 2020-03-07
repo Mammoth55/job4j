@@ -4,9 +4,6 @@ public class Builder extends Engineer {
 
     private int buildingCounter;
 
-    public Builder() {
-    }
-
     public Builder(String name, String surname, String education, String birthday, String techSkills, int buildingCounter) {
         super(name, surname, education, birthday, techSkills);
         this.buildingCounter = buildingCounter;
