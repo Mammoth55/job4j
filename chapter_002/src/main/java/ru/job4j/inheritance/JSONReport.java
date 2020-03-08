@@ -7,7 +7,7 @@ public class JSONReport extends TextReport {
         String crLf = System.lineSeparator();
         return "{" + crLf
                 + crLf
-                + name + " : " + name + crLf
+                + name + " : " + name + "," + crLf
                 + body + " : " + body + crLf
                 + crLf
                 + "}.";
