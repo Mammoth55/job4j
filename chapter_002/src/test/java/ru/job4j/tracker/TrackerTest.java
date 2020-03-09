@@ -69,4 +69,20 @@ public class TrackerTest {
         Item[] result = tracker.findByName(item[2].getName());
         assertThat(result[0].getName(), is(item[2].getName()));
     }
+
+    @Test
+    public void whenReplaceItem() {
+        Tracker tracker = new Tracker();
+        Item[] item = new Item[4];
+        item[0] = new Item("test1");
+        tracker.add(item[0]);
+        item[1] = new Item("test2");
+        tracker.add(item[1]);
+        item[2] = new Item("test3");
+        tracker.add(item[2]);
+        item[3] = new Item("test4");
+        tracker.add(item[3]);
+        tracker.replace(item[0].getId(), item[3]);
+        assertThat(item[0].getName(), is("test4"));
+    }
 }

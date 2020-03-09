@@ -70,18 +70,38 @@ public class Tracker {
         return out;
     }
 
+    /**
+     * Метод находит и возращает индекс заявки, с полем id идентичным ключу id.
+     * @param id уникальный идентификатор для поиска по массиву заявок.
+     * @return индекс заявки с соответствующим значением поля id, если найден, иначе -1.
+     */
+    private int indexOf(String id) {
+        int rsl = -1;
+        for (int index = 0; index < position; index++) {
+            if (items[index].getId().equals(id)) {
+                rsl = index;
+                break;
+            }
+        }
+        return rsl;
+    }
 
     /**
      * Метод находит и возращает заявку, с полем id идентичным ключу id.
      * @param id уникальный идентификатор для поиска по массиву заявок.
-     * @return заявкf с соответствующим значением поля id.
+     * @return заявка с соответствующим значением поля id.
      */
     public Item findById(String id) {
-        for (Item i : this.items) {
-            if (i.getId().equals(id)) {
-                return i;
-            }
-        }
-        return null;
+        int index = indexOf(id);
+        return index != -1 ? items[index] : null;
+    }
+
+    /**
+     * Метод находит и заменяет на заявку item заявку, с полем id идентичным ключу id.
+     * @param id уникальный идентификатор для поиска по массиву заявок.
+     * @param item заявка для замены.
+     */
+    public void replace(String id, Item item) {
+        items[indexOf(id)].setName(item.getName());
     }
 }
