@@ -42,15 +42,7 @@ public class Tracker {
      * @return массив только из оставленных заявок.
      */
     public Item[] findAll() {
-        int size = 0;
-        Item[] itemsWithoutNull = new Item[this.position];
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i] != null) {
-                itemsWithoutNull[size++] = this.items[i];
-            }
-        }
-        itemsWithoutNull = Arrays.copyOf(itemsWithoutNull, size);
-        return itemsWithoutNull;
+        return Arrays.copyOf(items, position);
     }
 
     /**
@@ -103,5 +95,18 @@ public class Tracker {
      */
     public void replace(String id, Item item) {
         items[indexOf(id)].setName(item.getName());
+    }
+
+    /**
+     * Метод находит и удаляет заявку, с полем id идентичным ключу id.
+     * @param id уникальный идентификатор для поиска по массиву заявок.
+     */
+    public void delete(String id) {
+        int i = indexOf(id);
+        if (i < position - 1) {
+            System.arraycopy(items, i + 1, items, i, position - i - 1);
+        }
+        items[position - 1] = null;
+        position--;
     }
 }
