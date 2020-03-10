@@ -6,6 +6,7 @@ public class StartUI {
 
     public void init(Scanner scanner, Tracker tracker) {
         int select;
+        boolean flag;
         boolean run = true;
         while (run) {
             this.showMenu();
@@ -33,20 +34,25 @@ public class StartUI {
                     String name1 = scanner.nextLine();
                     item = new Item(name1);
                     item.setId(name);
-                    tracker.replace(name, item);
+                    flag = tracker.replace(name, item);
+                    String str = flag ? "Операция успешна." : "Операция невозможна, нет такого ID.";
+                    System.out.println(str);
                     break;
                 case 3:
                     System.out.println("=== Delete Item ====");
                     System.out.print("Enter id: ");
                     name = scanner.nextLine();
-                    tracker.delete(name);
+                    flag = tracker.delete(name);
+                    str = flag ? "Операция успешна." : "Операция невозможна, нет такого ID.";
+                    System.out.println(str);
                     break;
                 case 4:
                     System.out.println("=== Find Item by ID ====");
                     System.out.print("Enter ID: ");
                     name = scanner.nextLine();
                     item = tracker.findById(name);
-                    System.out.println(item.getName() + ", ID = " + item.getId());
+                    str = item == null ? "Операция невозможна, нет такого ID." : item.getName() + ", ID = " + item.getId();
+                    System.out.println(str);
                     break;
                 case 5:
                     System.out.println("=== Find Item by Name ====");
