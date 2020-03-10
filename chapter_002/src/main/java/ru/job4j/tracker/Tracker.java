@@ -92,21 +92,35 @@ public class Tracker {
      * Метод находит и заменяет на заявку item заявку, с полем id идентичным ключу id.
      * @param id уникальный идентификатор для поиска по массиву заявок.
      * @param item заявка для замены.
+     * @return флаг выполнения операции, если id не найден то false, иначе true.
      */
-    public void replace(String id, Item item) {
-        items[indexOf(id)].setName(item.getName());
+    public boolean replace(String id, Item item) {
+        int index = indexOf(id);
+        if (index >= 0) {
+            item.setId(id);
+            items[index] = item;
+            return  true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * Метод находит и удаляет заявку, с полем id идентичным ключу id.
      * @param id уникальный идентификатор для поиска по массиву заявок.
+     * @return флаг выполнения операции, если id не найден то false, иначе true.
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
         int i = indexOf(id);
-        if (i < position - 1) {
-            System.arraycopy(items, i + 1, items, i, position - i - 1);
+        if (i >= 0) {
+            if (i < position - 1) {
+                System.arraycopy(items, i + 1, items, i, position - i - 1);
+            }
+            items[position - 1] = null;
+            position--;
+            return true;
+        } else {
+            return false;
         }
-        items[position - 1] = null;
-        position--;
     }
 }
