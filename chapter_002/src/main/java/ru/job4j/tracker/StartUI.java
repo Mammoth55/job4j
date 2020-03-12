@@ -28,6 +28,31 @@ public class StartUI {
         System.out.println(str);
     }
 
+    public static void showAllItem(Input input, Tracker tracker) {
+        System.out.println("=== Show all items ===");
+        Item[] items = tracker.findAll();
+        for (Item i : items) {
+            System.out.println(i.getName() + ", ID = " + i.getId());
+        }
+    }
+
+    public static void findItemById(Input input, Tracker tracker) {
+        System.out.println("=== Find Item by ID ====");
+        String name = input.askStr("Enter ID: ");
+        Item item = tracker.findById(name);
+        String str = item == null ? "Операция невозможна, нет такого ID." : item.getName() + ", ID = " + item.getId();
+        System.out.println(str);
+    }
+
+    public static void findItemByName(Input input, Tracker tracker) {
+        System.out.println("=== Find Item by Name ====");
+        String name = input.askStr("Enter Name: ");
+        Item[] items = tracker.findByName(name);
+        for (Item i : items) {
+            System.out.println(i.getName() + ", ID = " + i.getId());
+        }
+    }
+
     public void init(Input input, Tracker tracker) {
         int select;
         boolean run = true;
@@ -39,11 +64,7 @@ public class StartUI {
                     StartUI.createItem(input, tracker);
                     break;
                 case 1:
-                    System.out.println("=== Show all items ===");
-                    Item[] items = tracker.findAll();
-                    for (Item i : items) {
-                        System.out.println(i.getName() + ", ID = " + i.getId());
-                    }
+                    StartUI.showAllItem(input, tracker);
                     break;
                 case 2:
                     StartUI.replaceItem(input, tracker);
@@ -52,19 +73,10 @@ public class StartUI {
                     StartUI.deleteItem(input, tracker);
                     break;
                 case 4:
-                    System.out.println("=== Find Item by ID ====");
-                    String name = input.askStr("Enter ID: ");
-                    Item item = tracker.findById(name);
-                    String str = item == null ? "Операция невозможна, нет такого ID." : item.getName() + ", ID = " + item.getId();
-                    System.out.println(str);
+                    StartUI.findItemById(input, tracker);
                     break;
                 case 5:
-                    System.out.println("=== Find Item by Name ====");
-                    name = input.askStr("Enter Name: ");
-                    items = tracker.findByName(name);
-                    for (Item i : items) {
-                        System.out.println(i.getName() + ", ID = " + i.getId());
-                    }
+                    StartUI.findItemByName(input, tracker);
                     break;
                 case 6:
                     run = false;
