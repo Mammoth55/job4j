@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class StartUITest {
 
     @Test
-    public void whenExit() {
+    public void whenInit() {
         StubInput input = new StubInput(
                 new String[] {"0"}
         );
