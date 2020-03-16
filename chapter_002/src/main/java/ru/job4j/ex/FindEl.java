@@ -16,7 +16,7 @@ public class FindEl {
         return rsl;
     }
 
-    public static void main(String[] args) throws ElementNotFoundException {
+    public static void main(String[] args) {
         String[] array = {"one", "two", "three", "four"};
         try {
             int i = indexOf(array, "zero");
