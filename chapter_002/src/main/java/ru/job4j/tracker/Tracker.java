@@ -1,20 +1,21 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
 public class Tracker {
 
     /**
-     * Массив для хранения заявок.
+     * Коллекция для хранения заявок.
      */
-    private final Item[] items = new Item[100];
+    private final ArrayList<Item> items = new ArrayList<Item>();
 
     /**
      * Указатель ячейки для новой заявки.
-     * Также по сути является кол-вом заявок в массиве (индекс наполненности).
+     * Также по сути является кол-вом заявок в коллекции (индекс наполненности).
      */
-    private int position = 0;
+    // private int position = items.size();
 
     /**
      * Метод добавления заявки в хранилище
@@ -22,8 +23,7 @@ public class Tracker {
      */
     public void add(Item item) {
         item.setId(generateId());
-        items[position++] = item;
-        // return item;
+        items.add(item);
     }
 
     /**
@@ -37,39 +37,37 @@ public class Tracker {
     }
 
     /**
-     * Метод находит и возращает массив из оставленных заявок.
+     * Метод находит и возращает коллекцию из оставленных заявок.
      * @return массив только из оставленных заявок.
      */
-    public Item[] findAll() {
-        return Arrays.copyOf(items, position);
+    public ArrayList<Item> findAll() {
+        return items;
     }
 
     /**
-     * Метод находит и возращает массив из заявок, с полем name идентичным ключу key.
-     * @param key ключ для поиска по массиву заявок.
-     * @return массив только из заявок с соответствующим значением поля Name.
+     * Метод находит и возращает коллекцию из заявок, с полем name идентичным ключу key.
+     * @param key ключ для поиска по коллекции заявок.
+     * @return коллекция только из заявок с соответствующим значением поля Name.
      */
-    public Item[] findByName(String key) {
-        Item[] out = new Item[this.position];
-        int size = 0;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getName().equals(key)) {
-                out[size++] = this.items[i];
+    public ArrayList<Item> findByName(String key) {
+        ArrayList<Item> out = new ArrayList<Item>();
+        for (Item i : items) {
+            if (i.getName().equals(key)) {
+                out.add(i);
             }
         }
-        out = Arrays.copyOf(out, size);
         return out;
     }
 
     /**
      * Метод находит и возращает индекс заявки, с полем id идентичным ключу id.
-     * @param id уникальный идентификатор для поиска по массиву заявок.
+     * @param id уникальный идентификатор для поиска по коллекции заявок.
      * @return индекс заявки с соответствующим значением поля id, если найден, иначе -1.
      */
     private int indexOf(String id) {
         int rsl = -1;
-        for (int index = 0; index < position; index++) {
-            if (items[index].getId().equals(id)) {
+        for (int index = 0; index < items.size(); index++) {
+            if (items.get(index).getId().equals(id)) {
                 rsl = index;
                 break;
             }
@@ -79,17 +77,17 @@ public class Tracker {
 
     /**
      * Метод находит и возращает заявку, с полем id идентичным ключу id.
-     * @param id уникальный идентификатор для поиска по массиву заявок.
+     * @param id уникальный идентификатор для поиска по коллекции заявок.
      * @return заявка с соответствующим значением поля id.
      */
     public Item findById(String id) {
         int index = indexOf(id);
-        return index != -1 ? items[index] : null;
+        return index != -1 ? items.get(index) : null;
     }
 
     /**
      * Метод находит и заменяет на заявку item заявку, с полем id идентичным ключу id.
-     * @param id уникальный идентификатор для поиска по массиву заявок.
+     * @param id уникальный идентификатор для поиска по коллекции заявок.
      * @param item заявка для замены.
      * @return флаг выполнения операции, если id не найден то false, иначе true.
      */
@@ -97,7 +95,7 @@ public class Tracker {
         int index = indexOf(id);
         if (index >= 0) {
             item.setId(id);
-            items[index] = item;
+            items.set(index, item);
             return  true;
         } else {
             return false;
@@ -106,17 +104,13 @@ public class Tracker {
 
     /**
      * Метод находит и удаляет заявку, с полем id идентичным ключу id.
-     * @param id уникальный идентификатор для поиска по массиву заявок.
+     * @param id уникальный идентификатор для поиска по коллекции заявок.
      * @return флаг выполнения операции, если id не найден то false, иначе true.
      */
     public boolean delete(String id) {
         int i = indexOf(id);
         if (i >= 0) {
-            if (i < position - 1) {
-                System.arraycopy(items, i + 1, items, i, position - i - 1);
-            }
-            items[position - 1] = null;
-            position--;
+            items.remove(i);
             return true;
         } else {
             return false;
