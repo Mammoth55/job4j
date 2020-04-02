@@ -4,44 +4,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Tracker {
-
-    /**
-     * Коллекция для хранения заявок.
-     */
-    private final ArrayList<Item> items = new ArrayList<Item>();
-
-    /**
-     * Указатель ячейки для новой заявки.
-     * Также по сути является кол-вом заявок в коллекции (индекс наполненности).
-     */
-    // private int position = items.size();
+public class Tracker implements StoreMethod {
 
     /**
      * Метод добавления заявки в хранилище
      * @param item новая заявка
      */
+    @Override
     public void add(Item item) {
         item.setId(generateId());
-        items.add(item);
-    }
-
-    /**
-     * Метод генерирует уникальный ключ для заявки.
-     * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
-     * @return Уникальный ключ.
-     */
-    public String generateId() {
-        Random rm = new Random();
-        return String.valueOf(rm.nextLong() + System.currentTimeMillis());
+        ITEMS.add(item);
     }
 
     /**
      * Метод находит и возращает коллекцию из оставленных заявок.
      * @return массив только из оставленных заявок.
      */
-    public ArrayList<Item> findAll() {
-        return items;
+    @Override
+    public Store findAll() {
+        return ITEMS;
     }
 
     /**
@@ -49,9 +30,10 @@ public class Tracker {
      * @param key ключ для поиска по коллекции заявок.
      * @return коллекция только из заявок с соответствующим значением поля Name.
      */
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> out = new ArrayList<Item>();
-        for (Item i : items) {
+    @Override
+    public Store findByName(String key) {
+        Store out = new Store();
+        for (Item i : ITEMS) {
             if (i.getName().equals(key)) {
                 out.add(i);
             }
@@ -64,10 +46,11 @@ public class Tracker {
      * @param id уникальный идентификатор для поиска по коллекции заявок.
      * @return индекс заявки с соответствующим значением поля id, если найден, иначе -1.
      */
-    private int indexOf(String id) {
+    @Override
+    public int indexOf(String id) {
         int rsl = -1;
-        for (int index = 0; index < items.size(); index++) {
-            if (items.get(index).getId().equals(id)) {
+        for (int index = 0; index < ITEMS.size(); index++) {
+            if (ITEMS.get(index).getId().equals(id)) {
                 rsl = index;
                 break;
             }
@@ -80,9 +63,10 @@ public class Tracker {
      * @param id уникальный идентификатор для поиска по коллекции заявок.
      * @return заявка с соответствующим значением поля id.
      */
+    @Override
     public Item findById(String id) {
         int index = indexOf(id);
-        return index != -1 ? items.get(index) : null;
+        return index != -1 ? ITEMS.get(index) : null;
     }
 
     /**
@@ -91,11 +75,12 @@ public class Tracker {
      * @param item заявка для замены.
      * @return флаг выполнения операции, если id не найден то false, иначе true.
      */
+    @Override
     public boolean replace(String id, Item item) {
         int index = indexOf(id);
         if (index >= 0) {
             item.setId(id);
-            items.set(index, item);
+            ITEMS.set(index, item);
             return  true;
         } else {
             return false;
@@ -107,10 +92,11 @@ public class Tracker {
      * @param id уникальный идентификатор для поиска по коллекции заявок.
      * @return флаг выполнения операции, если id не найден то false, иначе true.
      */
+    @Override
     public boolean delete(String id) {
         int i = indexOf(id);
         if (i >= 0) {
-            items.remove(i);
+            ITEMS.remove(i);
             return true;
         } else {
             return false;
