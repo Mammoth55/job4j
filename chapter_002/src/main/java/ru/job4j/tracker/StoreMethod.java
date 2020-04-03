@@ -5,11 +5,6 @@ import java.util.Random;
 
 public interface StoreMethod {
 
-    /**
-     * Коллекция для хранения заявок.
-     */
-    Store ITEMS = new Store();
-
     Store findByName(String key);
 
     void add(Item item);

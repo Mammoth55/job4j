@@ -1,10 +1,11 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-
 public class Tracker implements StoreMethod {
+
+    /**
+     * хранилище для заявок.
+     */
+    private final Store items = new Store();
 
     /**
      * Метод добавления заявки в хранилище
@@ -13,27 +14,27 @@ public class Tracker implements StoreMethod {
     @Override
     public void add(Item item) {
         item.setId(generateId());
-        ITEMS.add(item);
+        items.add(item);
     }
 
     /**
-     * Метод находит и возращает коллекцию из оставленных заявок.
+     * Метод находит и возращает хранилище оставленных заявок.
      * @return массив только из оставленных заявок.
      */
     @Override
     public Store findAll() {
-        return ITEMS;
+        return items;
     }
 
     /**
-     * Метод находит и возращает коллекцию из заявок, с полем name идентичным ключу key.
+     * Метод находит и возращает хранилище заявок, с полем name идентичным ключу key.
      * @param key ключ для поиска по коллекции заявок.
-     * @return коллекция только из заявок с соответствующим значением поля Name.
+     * @return хранилище только из заявок с соответствующим значением поля Name.
      */
     @Override
     public Store findByName(String key) {
         Store out = new Store();
-        for (Item i : ITEMS) {
+        for (Item i : items) {
             if (i.getName().equals(key)) {
                 out.add(i);
             }
@@ -43,14 +44,14 @@ public class Tracker implements StoreMethod {
 
     /**
      * Метод находит и возращает индекс заявки, с полем id идентичным ключу id.
-     * @param id уникальный идентификатор для поиска по коллекции заявок.
+     * @param id уникальный идентификатор для поиска по хранилищу заявок.
      * @return индекс заявки с соответствующим значением поля id, если найден, иначе -1.
      */
     @Override
     public int indexOf(String id) {
         int rsl = -1;
-        for (int index = 0; index < ITEMS.size(); index++) {
-            if (ITEMS.get(index).getId().equals(id)) {
+        for (int index = 0; index < items.size(); index++) {
+            if (items.get(index).getId().equals(id)) {
                 rsl = index;
                 break;
             }
@@ -60,18 +61,18 @@ public class Tracker implements StoreMethod {
 
     /**
      * Метод находит и возращает заявку, с полем id идентичным ключу id.
-     * @param id уникальный идентификатор для поиска по коллекции заявок.
+     * @param id уникальный идентификатор для поиска по хранилищу заявок.
      * @return заявка с соответствующим значением поля id.
      */
     @Override
     public Item findById(String id) {
         int index = indexOf(id);
-        return index != -1 ? ITEMS.get(index) : null;
+        return index != -1 ? items.get(index) : null;
     }
 
     /**
      * Метод находит и заменяет на заявку item заявку, с полем id идентичным ключу id.
-     * @param id уникальный идентификатор для поиска по коллекции заявок.
+     * @param id уникальный идентификатор для поиска по хранилищу заявок.
      * @param item заявка для замены.
      * @return флаг выполнения операции, если id не найден то false, иначе true.
      */
@@ -80,7 +81,7 @@ public class Tracker implements StoreMethod {
         int index = indexOf(id);
         if (index >= 0) {
             item.setId(id);
-            ITEMS.set(index, item);
+            items.set(index, item);
             return  true;
         } else {
             return false;
@@ -89,14 +90,14 @@ public class Tracker implements StoreMethod {
 
     /**
      * Метод находит и удаляет заявку, с полем id идентичным ключу id.
-     * @param id уникальный идентификатор для поиска по коллекции заявок.
+     * @param id уникальный идентификатор для поиска по хранилищу заявок.
      * @return флаг выполнения операции, если id не найден то false, иначе true.
      */
     @Override
     public boolean delete(String id) {
         int i = indexOf(id);
         if (i >= 0) {
-            ITEMS.remove(i);
+            items.remove(i);
             return true;
         } else {
             return false;
