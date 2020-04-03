@@ -12,17 +12,12 @@ public class PassportOffice {
         boolean rsl = false;
         if (!citizens.containsKey(citizen.getPassport())) {
             citizens.put(citizen.getPassport(), citizen);
-        } else {
             rsl = true;
         }
         return rsl;
     }
 
     public Citizen get(String passport) {
-        Citizen citizen = null;
-        if (citizens.containsKey(passport)) {
-            citizen = citizens.get(passport);
-        }
-        return citizen;
+        return citizens.get(passport);
     }
 }
