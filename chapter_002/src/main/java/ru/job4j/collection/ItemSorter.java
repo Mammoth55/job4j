@@ -15,9 +15,9 @@ public class ItemSorter {
                 new Item("333")
         );
         System.out.println(items);
-        Collections.sort(items);
+        Collections.sort(items, new SortByNameItemUp());
         System.out.println(items);
-        Collections.sort(items, new SortByNameItem());
+        Collections.sort(items, new SortByNameItemDown());
         System.out.println(items);
     }
 }
