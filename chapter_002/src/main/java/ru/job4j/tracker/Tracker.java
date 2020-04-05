@@ -1,17 +1,30 @@
 package ru.job4j.tracker;
 
-public class Tracker implements StoreMethod {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Tracker {
 
     /**
      * хранилище для заявок.
      */
-    private final Store items = new Store();
+    private final List<Item> items = new ArrayList();
+
+    /**
+     * Метод генерирует уникальный ключ для заявки.
+     * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
+     * @return Уникальный ключ.
+     */
+    public String generateId() {
+        Random rm = new Random();
+        return String.valueOf(rm.nextLong() + System.currentTimeMillis());
+    }
 
     /**
      * Метод добавления заявки в хранилище
      * @param item новая заявка
      */
-    @Override
     public void add(Item item) {
         item.setId(generateId());
         items.add(item);
@@ -21,8 +34,7 @@ public class Tracker implements StoreMethod {
      * Метод находит и возращает хранилище оставленных заявок.
      * @return массив только из оставленных заявок.
      */
-    @Override
-    public Store findAll() {
+    public List<Item> findAll() {
         return items;
     }
 
@@ -31,9 +43,8 @@ public class Tracker implements StoreMethod {
      * @param key ключ для поиска по коллекции заявок.
      * @return хранилище только из заявок с соответствующим значением поля Name.
      */
-    @Override
-    public Store findByName(String key) {
-        Store out = new Store();
+    public List<Item> findByName(String key) {
+        List<Item> out = new ArrayList();
         for (Item i : items) {
             if (i.getName().equals(key)) {
                 out.add(i);
@@ -47,7 +58,6 @@ public class Tracker implements StoreMethod {
      * @param id уникальный идентификатор для поиска по хранилищу заявок.
      * @return индекс заявки с соответствующим значением поля id, если найден, иначе -1.
      */
-    @Override
     public int indexOf(String id) {
         int rsl = -1;
         for (int index = 0; index < items.size(); index++) {
@@ -64,7 +74,6 @@ public class Tracker implements StoreMethod {
      * @param id уникальный идентификатор для поиска по хранилищу заявок.
      * @return заявка с соответствующим значением поля id.
      */
-    @Override
     public Item findById(String id) {
         int index = indexOf(id);
         return index != -1 ? items.get(index) : null;
@@ -76,7 +85,6 @@ public class Tracker implements StoreMethod {
      * @param item заявка для замены.
      * @return флаг выполнения операции, если id не найден то false, иначе true.
      */
-    @Override
     public boolean replace(String id, Item item) {
         int index = indexOf(id);
         if (index >= 0) {
@@ -93,7 +101,6 @@ public class Tracker implements StoreMethod {
      * @param id уникальный идентификатор для поиска по хранилищу заявок.
      * @return флаг выполнения операции, если id не найден то false, иначе true.
      */
-    @Override
     public boolean delete(String id) {
         int i = indexOf(id);
         if (i >= 0) {

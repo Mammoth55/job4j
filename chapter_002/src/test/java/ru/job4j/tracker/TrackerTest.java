@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -29,7 +30,7 @@ public class TrackerTest {
     @Test
     public void whenAddNewItemsThenFindAll() {
         Tracker tracker = new Tracker();
-        ArrayList<Item> items = new ArrayList<Item>();
+        List<Item> items = new ArrayList();
         Item item = new Item("test1");
         items.add(item);
         tracker.add(item);
@@ -42,15 +43,14 @@ public class TrackerTest {
         item = new Item("test4");
         items.add(item);
         tracker.add(item);
-        ArrayList<Item> result;
-        result = tracker.findAll();
+        List<Item> result = tracker.findAll();
         assertThat(result, is(items));
     }
 
     @Test
     public void whenAddNewItemsThenFindById() {
         Tracker tracker = new Tracker();
-        ArrayList<Item> items = new ArrayList<Item>();
+        List<Item> items = new ArrayList();
         Item item = new Item("test1");
         items.add(item);
         tracker.add(item);
@@ -70,7 +70,7 @@ public class TrackerTest {
     @Test
     public void whenAddNewItemsThenFindByName() {
         Tracker tracker = new Tracker();
-        ArrayList<Item> items = new ArrayList<Item>();
+        List<Item> items = new ArrayList();
         Item item = new Item("test1");
         items.add(item);
         tracker.add(item);
@@ -83,8 +83,7 @@ public class TrackerTest {
         item = new Item("test4");
         items.add(item);
         tracker.add(item);
-        ArrayList<Item> result;
-        result = tracker.findByName(items.get(2).getName());
+        List<Item> result = tracker.findByName(items.get(2).getName());
         assertThat(result.get(0).getName(), is(items.get(2).getName()));
     }
 
