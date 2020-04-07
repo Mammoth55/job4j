@@ -19,6 +19,7 @@ public class StartUITest {
         StubInput input = new StubInput(list);
         StubAction action = new StubAction();
         List<UserAction> actions = new ArrayList();
+        actions.add(action);
         new StartUI().init(input, new Tracker(), actions);
         assertThat(action.isCall(), is(true));
     }
@@ -28,17 +29,18 @@ public class StartUITest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
-
         List<String> list = new ArrayList<>();
         list = Arrays.asList(new String[] {"0"});
-        StubInput input = new StubInput(list);
-        List<UserAction> actions = new ArrayList<UserAction>();
+        Input input = new StubInput(list);
+        List<UserAction> actions = new ArrayList();
+        actions.add(new StubAction());
         new StartUI().init(input, new Tracker(), actions);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.")
                 .add("0. Stub action")
                 .toString();
-        assertThat(new String(out.toByteArray()), is(expect));
+        String real = new String(out.toByteArray());
+        assertThat(real, is(expect));
         System.setOut(def);
     }
 }

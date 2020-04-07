@@ -27,6 +27,13 @@ public class StartUI {
         Input validate = new ValidateInput(input);
         Tracker tracker = new Tracker();
         List<UserAction> actions = new ArrayList();
+        actions.add(new CreateAction());
+        actions.add(new FindAllAction());
+        actions.add(new ReplaceAction());
+        actions.add(new DeleteAction());
+        actions.add(new FindByIdAction());
+        actions.add(new FindByNameAction());
+        actions.add(new ExitAction());
         new StartUI().init(validate, tracker, actions);
     }
 }

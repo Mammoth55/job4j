@@ -15,6 +15,6 @@ public class StringCompare implements Comparator<String> {
                 return rsl;
             }
         }
-        return lengthLeft == lengthRight ? 0 : lengthLeft > lengthRight ? 1 : -1;
+        return lengthLeft - lengthRight;
     }
 }
