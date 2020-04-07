@@ -3,6 +3,9 @@ package ru.job4j.tracker;
 import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringJoiner;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -17,7 +20,9 @@ public class FindByNameActionTest {
         Tracker tracker = new Tracker();
         Item item = new Item("fix bug");
         tracker.add(item);
-        StubInput input = new StubInput(new String[] {"fix bug"});
+        List<String> list = new ArrayList<>();
+        list = Arrays.asList(new String[] {"fix bug"});
+        StubInput input = new StubInput(list);
         FindByNameAction act = new FindByNameAction();
         act.execute(input, tracker);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())

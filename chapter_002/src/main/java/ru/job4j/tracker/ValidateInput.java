@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 public class ValidateInput implements Input {
+
     private final Input input;
 
     public ValidateInput(Input input) {
@@ -30,10 +31,13 @@ public class ValidateInput implements Input {
     @Override
     public int askInt(String question, int max) {
         boolean invalid = true;
-        int value = -1;
+        int select = -1;
         do {
             try {
-                value = input.askInt(question, max);
+                select = askInt(question);
+                if (select < 0 || select >= max) {
+                    throw new IllegalStateException(String.format("Out of about %s > [0, %s]", select, max));
+                }
                 invalid = false;
             } catch (IllegalStateException moe) {
                 System.out.println("Please select key from menu.");
@@ -41,6 +45,6 @@ public class ValidateInput implements Input {
                 System.out.println("Please enter validate data again.");
             }
         } while (invalid);
-        return value;
+        return select;
     }
 }

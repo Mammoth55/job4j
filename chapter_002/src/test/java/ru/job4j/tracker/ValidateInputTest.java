@@ -3,6 +3,10 @@ package ru.job4j.tracker;
 import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -13,9 +17,9 @@ public class ValidateInputTest {
         ByteArrayOutputStream mem = new ByteArrayOutputStream();
         PrintStream out = System.out;
         System.setOut(new PrintStream(mem));
-        ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"one", "1"})
-        );
+        List<String> list = new ArrayList<>();
+        list = Arrays.asList(new String[] {"one", "1"});
+        ValidateInput input = new ValidateInput(new StubInput(list));
         input.askInt("Enter");
         assertThat(
                 mem.toString(),
@@ -29,10 +33,9 @@ public class ValidateInputTest {
         ByteArrayOutputStream mem = new ByteArrayOutputStream();
         PrintStream out = System.out;
         System.setOut(new PrintStream(mem));
-        String[] data = {"7", "6"};
-        ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"7", "6"})
-        );
+        List<String> list = new ArrayList<>();
+        list = Arrays.asList(new String[] {"7", "6"});
+        ValidateInput input = new ValidateInput(new StubInput(list));
         input.askInt("Enter", 7);
         assertThat(
                 mem.toString(),

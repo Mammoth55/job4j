@@ -4,6 +4,8 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringJoiner;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -12,11 +14,12 @@ public class StartUITest {
 
     @Test
     public void whenInit() {
-        StubInput input = new StubInput(
-                new String[] {"0"}
-        );
+        List<String> list = new ArrayList<>();
+        list = Arrays.asList(new String[] {"0"});
+        StubInput input = new StubInput(list);
         StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[] {action});
+        List<UserAction> actions = new ArrayList();
+        new StartUI().init(input, new Tracker(), actions);
         assertThat(action.isCall(), is(true));
     }
 
@@ -25,11 +28,12 @@ public class StartUITest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
-        StubInput input = new StubInput(
-                new String[] {"0"}
-        );
-        StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[] {action});
+
+        List<String> list = new ArrayList<>();
+        list = Arrays.asList(new String[] {"0"});
+        StubInput input = new StubInput(list);
+        List<UserAction> actions = new ArrayList<UserAction>();
+        new StartUI().init(input, new Tracker(), actions);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.")
                 .add("0. Stub action")

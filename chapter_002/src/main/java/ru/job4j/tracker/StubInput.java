@@ -1,16 +1,19 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 public class StubInput implements Input {
-    private String[] answers;
+
+    private List<String> answers;
     private int position = 0;
 
-    public StubInput(String[] answers) {
+    public StubInput(List<String> answers) {
         this.answers = answers;
     }
 
     @Override
     public String askStr(String question) {
-        return answers[position++];
+        return answers.get(position++);
     }
 
     @Override
@@ -20,6 +23,10 @@ public class StubInput implements Input {
 
     @Override
     public int askInt(String question, int max) {
-        return askInt(question);
+        int select = askInt(question);
+        if (select < 0 || select >= max) {
+            throw new IllegalStateException(String.format("Out of about %s > [0, %s]", select, max));
+        }
+        return select;
     }
 }
