@@ -9,7 +9,7 @@ public class CryptoArray {
     public static String crypto(String size, String inString) {
         List<String> inArray = new ArrayList<>();
         inArray = Arrays.asList(inString.split("[ ]"));
-        String outString = "";
+        StringBuilder outString = new StringBuilder("");
         int counter = 0;
         String current = "";
         for (String s : inArray) {
@@ -20,13 +20,19 @@ public class CryptoArray {
                 if (s.equals(current)) {
                     counter++;
                 } else {
-                    outString += counter + " " + current + " ";
+                    outString.append(counter)
+                            .append(" ")
+                            .append(current)
+                            .append(" ");
                     current = s;
                     counter = 1;
                 }
             }
         }
-        outString += counter + " " + current + " ";
-        return outString;
+        outString.append(counter)
+                .append(" ")
+                .append(current)
+                .append(" ");
+        return outString.toString();
     }
 }
