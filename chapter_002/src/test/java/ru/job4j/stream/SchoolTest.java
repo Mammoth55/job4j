@@ -11,7 +11,7 @@ public class SchoolTest {
     public void whenClassA() {
         School school = new School();
         List<Student> list = school.collecting(school.students, student ->
-                student.getScore() <= 100 && student.getScore() > 70);
+                student.getScore() <= 100 && student.getScore() >= 70);
         assertThat(list.get(0).getName(), is("Arsentev"));
     }
 
@@ -19,7 +19,7 @@ public class SchoolTest {
     public void whenClassB() {
         School school = new School();
         List<Student> list = school.collecting(school.students, student ->
-                student.getScore() <= 70 && student.getScore() > 50);
+                student.getScore() < 70 && student.getScore() >= 50);
         assertThat(list.get(0).getName(), is("Ivanov"));
     }
 
@@ -27,7 +27,7 @@ public class SchoolTest {
     public void whenClassC() {
         School school = new School();
         List<Student> list = school.collecting(school.students, student ->
-                student.getScore() <= 50 && student.getScore() >= 0);
+                student.getScore() < 50 && student.getScore() >= 0);
         assertThat(list.get(0).getName(), is("Mamontov"));
     }
 }

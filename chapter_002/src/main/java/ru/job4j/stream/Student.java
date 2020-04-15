@@ -2,8 +2,8 @@ package ru.job4j.stream;
 
 public class Student {
 
-    private int score = 0;
-    private String name = null;
+    private int score;
+    private String name;
 
     public Student(String name, int score) {
         this.name = name;
