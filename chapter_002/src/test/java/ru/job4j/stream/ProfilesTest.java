@@ -8,21 +8,25 @@ import static org.junit.Assert.assertThat;
 
 public class ProfilesTest {
 
-    List<Profile> profiles;
+    private List<Profile> profiles;
 
     @Before
     public void dataInit() {
         profiles = List.of(
                 new Profile(new Address("Moscow", "Lenina", 11, 5)),
                 new Profile(new Address("Omsk", "Komarova", 15, 33)),
-                new Profile(new Address("Perm", "Gagarina", 4, 1))
+                new Profile(new Address("Moscow", "Lenina", 11, 5)),
+                new Profile(new Address("Astana", "Gagarina", 4, 1)),
+                new Profile(new Address("Moscow", "Lenina", 11, 5)),
+                new Profile(new Address("Omsk", "Komarova", 15, 33)),
+                new Profile(new Address("Norilsk", "Komarova", 105, 3))
         );
     }
 
     @Test
     public void whenCollecting() {
         Profiles pro = new Profiles();
-        List<Address> list = pro.collectAddress(profiles);
-        assertThat(list.get(2).getCity(), is("Perm"));
+        List<Address> list = pro.collectSortedAddress(profiles);
+        assertThat(list.get(3).getCity(), is("Omsk"));
     }
 }
