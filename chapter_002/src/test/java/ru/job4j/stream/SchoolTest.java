@@ -2,7 +2,11 @@ package ru.job4j.stream;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -41,5 +45,13 @@ public class SchoolTest {
         List<Student> list = school.collecting(students, student ->
                 student.getScore() < 50 && student.getScore() >= 0);
         assertThat(list.get(0).getName(), is("Mamontov"));
+    }
+
+    @Test
+    public void whenConvertToMap() {
+        School school = new School();
+        Map<String, Student> map = new HashMap<>();
+        map = school.convertToMap(students);
+        assertThat(map.get("Mamontov").getScore(), is(40));
     }
 }
