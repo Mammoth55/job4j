@@ -10,10 +10,9 @@ import java.util.stream.Collectors;
 public class Profiles {
 
     public List<Address> collectSortedAddress(List<Profile> profiles) {
-        List<Address> out = profiles.stream().distinct().map(
-                profile -> profile.getAddress()
-        ).collect(Collectors.toList());
-        Collections.sort(out);
-        return out;
+        Comparator<Profile> comparator
+                = (left, right) -> left.getAddress().getCity().compareTo(right.getAddress().getCity());
+        return profiles.stream().sorted(comparator).distinct().map(
+                profile -> profile.getAddress()).collect(Collectors.toList());
     }
 }

@@ -2,7 +2,7 @@ package ru.job4j.stream;
 
 import java.util.Objects;
 
-public class Profile implements Comparable<Profile> {
+public class Profile {
 
     private Address address;
 
@@ -32,10 +32,5 @@ public class Profile implements Comparable<Profile> {
                 && getAddress().getApartment() == profile.getAddress().getApartment()
                 && getAddress().getCity().equals(profile.getAddress().getCity())
                 && getAddress().getStreet().equals(profile.getAddress().getStreet());
-    }
-
-    @Override
-    public int compareTo(Profile o) {
-        return this.getAddress().getCity().compareTo(o.getAddress().getCity());
     }
 }
