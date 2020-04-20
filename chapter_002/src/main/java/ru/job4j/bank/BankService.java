@@ -1,6 +1,7 @@
 package ru.job4j.bank;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BankService {
 
@@ -21,29 +22,18 @@ public class BankService {
     }
 
     public User findByPassport(String passport) {
-        User user = null;
-        for (User index : users.keySet()) {
-            if (index.getPassport().equals(passport)) {
-                user = index;
-                break;
-            }
-        }
-        return user;
+        List<User> list = users.keySet().stream().filter(user -> user.getPassport().equals(passport)).collect(Collectors.toList());
+        return list.size() == 0 ? null : list.get(0);
     }
 
     public Account findByRequisite(String passport, String requisite) {
-        Account account = null;
+        List<Account> list = new ArrayList<>();
         User user = findByPassport(passport);
         if (user != null) {
-            List<Account> list = users.get(user);
-            for (Account acc : list) {
-                if (acc.getRequisite().equals(requisite)) {
-                    account = acc;
-                    break;
-                }
-            }
+            list = users.get(user);
+            list = list.stream().filter(account -> account.getRequisite().equals(requisite)).collect(Collectors.toList());
         }
-        return account;
+        return list.size() == 0 ? null : list.get(0);
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
