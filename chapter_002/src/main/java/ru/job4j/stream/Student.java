@@ -1,6 +1,6 @@
 package ru.job4j.stream;
 
-public class Student {
+public class Student implements Comparable<Student> {
 
     private String name;
     private int score;
@@ -20,5 +20,12 @@ public class Student {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return this.getName().compareTo(o.getName()) != 0
+                ? this.getName().compareTo(o.getName())
+                : this.getScore() - o.getScore();
     }
 }

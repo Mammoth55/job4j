@@ -3,6 +3,7 @@ package ru.job4j.stream;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,5 +54,13 @@ public class SchoolTest {
         Map<String, Student> map = new HashMap<>();
         map = school.convertToMap(students);
         assertThat(map.get("Mamontov").getScore(), is(40));
+    }
+
+    @Test
+    public void whenLevelOf50() {
+        School school = new School();
+        List<Student> list = new ArrayList<>();
+        list = school.levelOf(students, 50);
+        assertThat(list.size(), is(2));
     }
 }
